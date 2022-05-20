@@ -5,7 +5,7 @@
 
 /* put the database name into this command */
 USE megastore;
-
+-- assignment 5 needs some changes for correctness
 /* Query 1 */
 -- For  each  order,  write  a  SQL  statement  that  displays  the  order  ID  and  order  date  along  with  the
 -- customer ID, first name, and last name of the customer for which the order was created.
