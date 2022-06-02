@@ -2,7 +2,7 @@
   Evans Ding
    CS 31A, Spring 2022
 */
-
+-- using megastore database
 /* put the database name into this command */
 USE megastore;
 
