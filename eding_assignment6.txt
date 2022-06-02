@@ -1,0 +1,1370 @@
+mysql> source  /Users/evansding/my_scripts/eding_assignment6.sql;
+--------------
+/* Assignment6.sql
+  Evans Ding
+   CS 31A, Spring 2022
+*/
+
+/* put the database name into this command */
+USE megastore
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+/* Query 1 */
+-- Question 1: Write a SELECT statement that finds the average salary for Mega Store (MS) employees whose
+-- manager ID is 100.
+
+SELECT AVG(salary)
+FROM employees
+WHERE manager_id = 100
+--------------
+
++--------------+
+| AVG(salary)  |
++--------------+
+| 12660.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+--------------
+-- Query 2:
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Display the lowest salary, the most recent hire date, the last name who is first in an alphabetical list
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- of employees, and the last name who is last of an alphabetical list of employees. Select only employees who are
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- in departments 30 or 60.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT MIN(salary) AS lowest_salary, MIN(hire_date) AS recent_hire, MIN(last_name) AS f_last_name, MAX(last_name) AS l_last_name
+FROM employees
+WHERE dept_id = 30 OR dept_id = 60
+--------------
+
++---------------+-------------+-------------+-------------+
+| lowest_salary | recent_hire | f_last_name | l_last_name |
++---------------+-------------+-------------+-------------+
+|       4200.00 | 2005-01-03  | Ernst       | Lorentz     |
++---------------+-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+--------------
+-- Query 3
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Create a list including each employee's first name concatenated to a space and the employee's last
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- name, and the salary of all employees where the last name contains the string 'ar'.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT CONCAT(first_name, ' ', last_name) AS 'employee name', salary
+FROM employees
+WHERE last_name LIKE '%ar%'
+--------------
+
++----------------------+----------+
+| employee name        | salary   |
++----------------------+----------+
+| Neena Kochhar        | 17000.00 |
+| Peter Vargas         |  2500.00 |
+| Michael Hartstein    | 13000.00 |
+| Sophia Barbosa Souza |  9500.00 |
+| Matthias Reinhard    |  8100.00 |
++----------------------+----------+
+5 rows in set (0.00 sec)
+
+--------------
+-- Query 4
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Display the last name who is first in an alphabetical list of employees in the employees table, and
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- the last name who is last in that an alphabetical list.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT MIN(last_name) AS 'first last name', MAX(Last_name) AS 'last last name'
+FROM employees
+--------------
+
++-----------------+----------------+
+| first last name | last last name |
++-----------------+----------------+
+| Abel            | Zlotkey        |
++-----------------+----------------+
+1 row in set (0.03 sec)
+
+--------------
+-- Query 5
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Create a list of weekly salaries from the employees. The salaries should be formatted to include a $-
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- sign and have two decimal points like: $9999.99.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT emp_id, CONCAT('$', salary) AS 'weekly salary'
+FROM employees
+--------------
+
++--------+---------------+
+| emp_id | weekly salary |
++--------+---------------+
+|    100 | $24000.00     |
+|    101 | $17000.00     |
+|    102 | $17000.00     |
+|    103 | $9000.00      |
+|    104 | $6000.00      |
+|    107 | $4200.00      |
+|    124 | $5800.00      |
+|    141 | $3500.00      |
+|    142 | $3100.00      |
+|    143 | $2600.00      |
+|    144 | $2500.00      |
+|    149 | $10500.00     |
+|    174 | $11000.00     |
+|    176 | $8600.00      |
+|    178 | $7000.00      |
+|    200 | $4400.00      |
+|    201 | $13000.00     |
+|    202 | $3900.00      |
+|    205 | $12000.00     |
+|    206 | $8300.00      |
+|    207 | $9500.00      |
+|    208 | $7500.00      |
+|    209 | $7300.00      |
+|    210 | $7300.00      |
+|    212 | $9600.00      |
+|    215 | $8600.00      |
+|    216 | $3500.00      |
+|    217 | $4000.00      |
+|    219 | $3700.00      |
+|    220 | $2600.00      |
+|    222 | $8000.00      |
+|    223 | $7800.00      |
+|    224 | $8100.00      |
+|    225 | $4300.00      |
+|    226 | $4100.00      |
+|    227 | $4400.00      |
+|    228 | $5000.00      |
+|    231 | $5400.00      |
+|    232 | $5200.00      |
+|    235 | $4900.00      |
++--------+---------------+
+40 rows in set (0.00 sec)
+
+--------------
+-- Query 6
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Display the product ID and product description for all products. The product descriptions should
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- appear in uppercase letters.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT prod_id, UPPER(prod_desc) AS Prod_description
+FROM products
+--------------
+
++---------+------------------------------------------------+
+| prod_id | Prod_description                               |
++---------+------------------------------------------------+
+|    1000 | SEVEN SPEED BND HAND MIXER, BLACK              |
+|    1010 | SET OF 12 BARBELLS 15 POUNDS                   |
+|    1020 | CORK-BACKED DARTBOARD WITH HANGER              |
+|    1030 | BASKETBALL                                     |
+|    1040 | SUPER FLYER TREADMILL                          |
+|    1050 | DELUXE STATIONARY BIKE                         |
+|    1060 | DELUXE MOUNTAIN BIKE                           |
+|    1070 | STEAM AND DRY IRON SUNSHINE, YELLOW            |
+|    1071 | STEAM AND DRY IRON SUNSHINE, BLUE              |
+|    1072 | STEAM AND DRY IRON SUNSHINE, RED               |
+|    1080 | CORNPOPPER 12 QUART AUTOMATIC SHUTOFF          |
+|    1090 | GAS GRILL                                      |
+|    1100 | TWELVE-SPEED BLENDER                           |
+|    1110 | ELECTRIC PANCAKE GRIDDLE                       |
+|    1120 | FULL-SIZED WASHER                              |
+|    1125 | LOW ENERGY DRYER                               |
+|    1126 | LOW ENERGY WASHER DRYER COMBO                  |
+|    1130 | MINI FREEZER, SIZED FOR THE OFFICE             |
+|    1140 | BIRD CAGE- SIMPLE; WIRE FRAME TWO FEEDER TRAYS |
+|    1141 | BIRD CAGE- DELUXE;FLOOR MODEL, WITH FLY SPACE  |
+|    1142 | BIRD SEED MIX WITH SUNFLOWERS                  |
+|    1143 | BIRD SEED MIX WITH MORE SUNFLOWER SEEDS        |
+|    1150 | CAT EXERCISER                                  |
+|    1151 | CAT PILLOW, REMOVABLE CLOTH COVER              |
+|    1152 | CAT PILLOW, REMOVABLE LEATHER COVER            |
+|    1160 | STAND MIXER WITH ATTACHMENTS                   |
+|    2014 | BIX BEIDERBECKE - TIGER RAG                    |
+|    2234 | CHARLES MINGUS - PITHECANTHROPUS ERECTUS       |
+|    2337 | JOHN COLTRANE - BLUE TRAIN                     |
+|    2412 | DAVID NEWMAN - DAVEY BLUE                      |
+|    2487 | STANLEY TURRENTINE - DON'T MESS WITH MR. T     |
+|    2746 | CHARLES MINGUS - BLUES & POLITICS              |
+|    2747 | CHARLES MINGUS - BLUES & ROOTS                 |
+|    2933 | DAVID NEWMAN - I REMEMBER BROTHER RAY          |
+|    2947 | ORNETTE COLEMAN - SOUND GRAMMER                |
+|    2984 | JOHN COLTRANE - LUSH LIFE                      |
+|    2987 | STANLEY TURRENTINE - BALLADS                   |
+|    4567 | OUR HIGHEST END CAT TREE- YOU GOTTA SEE THIS   |
+|    4568 | SATIN FOUR-POSTER CAT BED                      |
+|    4569 | SIZED FOR THE APARTMENT                        |
+|    4575 | GE MODEL 34PG98                                |
+|    4576 | PRIMO BRAND OF CATNIP FOR YOUR FAVORITE CAT    |
+|    4577 | LEATHER CAT LEASH WITH HARNESS                 |
+|    5000 | CELLO BAG OF MIXED FINGERLING POTATOES         |
+|    5001 | DUNDEE GINGER PRESERVE 12 OZ JAR               |
+|    5002 | 16 OZ JACKETED GRAPHITE BALL-PEEN HAMMER       |
+|    5004 | 10 OZ STEEL HEAD DEAD BLOW HAMMER              |
+|    5005 | STEEL SHINGLER HAMMERHAMMER                    |
+|    5008 | 22 OZ GRAPHITE CHECKERED FACE FRAMING HAMMER   |
++---------+------------------------------------------------+
+49 rows in set (0.00 sec)
+
+--------------
+-- Query 7
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Display the customer ID, first name, last name, and credit limit for all customers. The credit limit
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- should be rounded to the nearest dollar.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT cust_id, first_name, last_name, ROUND(credit_limit) as credit_limit
+FROM customers
+--------------
+
++---------+------------+------------+--------------+
+| cust_id | first_name | last_name  | credit_limit |
++---------+------------+------------+--------------+
+|  400300 | Arnold     | McGold     |         6000 |
+|  400801 | Geo        | Washington |          750 |
+|  401250 | Samuel     | Morse      |          750 |
+|  401890 | William    | Northrep   |         1750 |
+|  402100 | William    | Morise     |          750 |
+|  402110 | John       | Coltrane   |          750 |
+|  402120 | Tyner      | McCoy      |          750 |
+|  402500 | Elton John | Jones      |         NULL |
+|  403000 | Sally      | Williams   |         6000 |
+|  403010 | Elisha     | Otis       |         6000 |
+|  403050 | Alexis     | Hamilton   |         6000 |
+|  403100 | James      | Stevenson  |         6000 |
+|  403500 | JAMES      | Stevenson  |         6000 |
+|  403750 | Mary       | O'Leary    |         6000 |
+|  403760 | Mary       | O'Leary    |         6000 |
+|  404000 | Frederick  | Olmsted    |         3500 |
+|  404100 | D. K.      | Button     |         3500 |
+|  404150 | Tom        | Dancer     |         3500 |
+|  404180 | Danielle   | Shay       |         3500 |
+|  404890 | Florence   | Kelley     |         1750 |
+|  404900 | Al         | Williams   |         1750 |
+|  404950 | William    | Morris     |         1750 |
+|  405000 | David      | Day        |         NULL |
+|  408770 | Clem       | Clay       |         7500 |
+|  409010 | William    | Morris     |         1750 |
+|  409020 | William    | Max        |         1750 |
+|  409030 | Barry      | Mazur      |         6000 |
+|  409150 | Joan       | Martin     |         1750 |
+|  409160 | Jane       | Martin     |         1750 |
+|  409190 | NULL       | Prince     |         1750 |
+|  900300 | Arnold     | McGold     |         6000 |
+|  903000 | Arnold     | McGold     |         6000 |
+|  915001 | Abigail    | Adams      |         1750 |
++---------+------------+------------+--------------+
+33 rows in set (0.00 sec)
+
+--------------
+-- Query 8
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- The Mega Store is running a promotion that is valid for up to 20 days after an order is placed.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Write a SQL statement that lists the order ID, customer ID, first name, and last name. The promotion date is 20
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- days after the order was placed.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ord_id, c.cust_id, first_name, last_name, ord_date, DATE_ADD(ord_date, INTERVAL 20 DAY) AS promotion_date
+FROM orders AS o
+JOIN customers AS c ON o.cust_id = c.cust_id
+GROUP BY ord_id
+--------------
+
++--------+---------+------------+-----------+---------------------+---------------------+
+| ord_id | cust_id | first_name | last_name | ord_date            | promotion_date      |
++--------+---------+------------+-----------+---------------------+---------------------+
+|    105 |  403000 | Sally      | Williams  | 2013-10-01 00:00:00 | 2013-10-21 00:00:00 |
+|    106 |  401250 | Samuel     | Morse     | 2013-10-01 00:00:00 | 2013-10-21 00:00:00 |
+|    107 |  403050 | Alexis     | Hamilton  | 2013-10-02 00:00:00 | 2013-10-22 00:00:00 |
+|    108 |  403000 | Sally      | Williams  | 2013-10-02 00:00:00 | 2013-10-22 00:00:00 |
+|    109 |  403000 | Sally      | Williams  | 2013-10-12 00:00:00 | 2013-11-01 00:00:00 |
+|    110 |  404950 | William    | Morris    | 2013-10-12 00:00:00 | 2013-11-01 00:00:00 |
+|    111 |  403000 | Sally      | Williams  | 2013-11-01 00:00:00 | 2013-11-21 00:00:00 |
+|    112 |  401890 | William    | Northrep  | 2013-11-08 00:00:00 | 2013-11-28 00:00:00 |
+|    113 |  401250 | Samuel     | Morse     | 2013-11-08 00:00:00 | 2013-11-28 00:00:00 |
+|    114 |  402100 | William    | Morise    | 2013-11-08 00:00:00 | 2013-11-28 00:00:00 |
+|    115 |  402100 | William    | Morise    | 2013-11-08 00:00:00 | 2013-11-28 00:00:00 |
+|    116 |  405000 | David      | Day       | 2013-11-12 00:00:00 | 2013-12-02 00:00:00 |
+|    117 |  402100 | William    | Morise    | 2013-11-28 00:00:00 | 2013-12-18 00:00:00 |
+|    118 |  403010 | Elisha     | Otis      | 2013-11-28 00:00:00 | 2013-12-18 00:00:00 |
+|    119 |  401250 | Samuel     | Morse     | 2013-11-28 00:00:00 | 2013-12-18 00:00:00 |
+|    120 |  903000 | Arnold     | McGold    | 2014-01-02 00:00:00 | 2014-01-22 00:00:00 |
+|    121 |  903000 | Arnold     | McGold    | 2014-01-03 00:00:00 | 2014-01-23 00:00:00 |
+|    122 |  409150 | Joan       | Martin    | 2014-01-23 00:00:00 | 2014-02-12 00:00:00 |
+|    123 |  409150 | Joan       | Martin    | 2013-12-05 00:00:00 | 2013-12-25 00:00:00 |
+|    124 |  409160 | Jane       | Martin    | 2013-12-07 00:00:00 | 2013-12-27 00:00:00 |
+|    125 |  409160 | Jane       | Martin    | 2013-12-09 00:00:00 | 2013-12-29 00:00:00 |
+|    126 |  409190 | NULL       | Prince    | 2013-12-15 00:00:00 | 2014-01-04 00:00:00 |
+|    127 |  915001 | Abigail    | Adams     | 2013-12-15 00:00:00 | 2014-01-04 00:00:00 |
+|    128 |  409030 | Barry      | Mazur     | 2013-12-15 00:00:00 | 2014-01-04 00:00:00 |
+|    129 |  915001 | Abigail    | Adams     | 2013-12-15 00:00:00 | 2014-01-04 00:00:00 |
+|    130 |  409030 | Barry      | Mazur     | 2013-12-30 00:00:00 | 2014-01-19 00:00:00 |
+|    218 |  409150 | Joan       | Martin    | 2013-08-08 00:00:00 | 2013-08-28 00:00:00 |
+|    223 |  409150 | Joan       | Martin    | 2013-08-05 00:00:00 | 2013-08-25 00:00:00 |
+|    224 |  409160 | Jane       | Martin    | 2013-08-07 00:00:00 | 2013-08-27 00:00:00 |
+|    225 |  409160 | Jane       | Martin    | 2013-08-09 00:00:00 | 2013-08-29 00:00:00 |
+|    227 |  403050 | Alexis     | Hamilton  | 2013-08-01 00:00:00 | 2013-08-21 00:00:00 |
+|    301 |  401250 | Samuel     | Morse     | 2014-06-04 00:00:00 | 2014-06-24 00:00:00 |
+|    302 |  404000 | Frederick  | Olmsted   | 2014-06-04 00:00:00 | 2014-06-24 00:00:00 |
+|    303 |  404100 | D. K.      | Button    | 2014-06-10 00:00:00 | 2014-06-30 00:00:00 |
+|    306 |  903000 | Arnold     | McGold    | 2014-06-04 00:00:00 | 2014-06-24 00:00:00 |
+|    307 |  900300 | Arnold     | McGold    | 2014-06-04 00:00:00 | 2014-06-24 00:00:00 |
+|    312 |  903000 | Arnold     | McGold    | 2014-06-07 00:00:00 | 2014-06-27 00:00:00 |
+|    313 |  903000 | Arnold     | McGold    | 2014-06-07 00:00:00 | 2014-06-27 00:00:00 |
+|    324 |  409030 | Barry      | Mazur     | 2014-06-11 00:00:00 | 2014-07-01 00:00:00 |
+|    378 |  400300 | Arnold     | McGold    | 2014-06-14 00:00:00 | 2014-07-04 00:00:00 |
+|    390 |  403000 | Sally      | Williams  | 2014-06-04 00:00:00 | 2014-06-24 00:00:00 |
+|    395 |  403000 | Sally      | Williams  | 2014-06-04 00:00:00 | 2014-06-24 00:00:00 |
+|    400 |  403100 | James      | Stevenson | 2013-10-15 00:00:00 | 2013-11-04 00:00:00 |
+|    401 |  403100 | James      | Stevenson | 2013-10-15 00:00:00 | 2013-11-04 00:00:00 |
+|    402 |  403100 | James      | Stevenson | 2013-10-18 00:00:00 | 2013-11-07 00:00:00 |
+|    405 |  408770 | Clem       | Clay      | 2013-11-19 00:00:00 | 2013-12-09 00:00:00 |
+|    407 |  403100 | James      | Stevenson | 2013-11-15 00:00:00 | 2013-12-05 00:00:00 |
+|    408 |  404950 | William    | Morris    | 2013-11-20 00:00:00 | 2013-12-10 00:00:00 |
+|    411 |  404950 | William    | Morris    | 2014-07-01 00:00:00 | 2014-07-21 00:00:00 |
+|    412 |  403000 | Sally      | Williams  | 2014-07-01 00:00:00 | 2014-07-21 00:00:00 |
+|    413 |  409150 | Joan       | Martin    | 2014-07-07 00:00:00 | 2014-07-27 00:00:00 |
+|    414 |  409150 | Joan       | Martin    | 2014-07-20 00:00:00 | 2014-08-09 00:00:00 |
+|    415 |  409150 | Joan       | Martin    | 2014-07-23 00:00:00 | 2014-08-12 00:00:00 |
+|    503 |  404100 | D. K.      | Button    | 2014-01-04 00:00:00 | 2014-01-24 00:00:00 |
+|    504 |  404100 | D. K.      | Button    | 2014-01-11 00:00:00 | 2014-01-31 00:00:00 |
+|    505 |  403000 | Sally      | Williams  | 2014-01-12 00:00:00 | 2014-02-01 00:00:00 |
+|    506 |  401250 | Samuel     | Morse     | 2014-01-12 00:00:00 | 2014-02-01 00:00:00 |
+|    507 |  403050 | Alexis     | Hamilton  | 2014-02-01 00:00:00 | 2014-02-21 00:00:00 |
+|    508 |  403000 | Sally      | Williams  | 2014-02-01 00:00:00 | 2014-02-21 00:00:00 |
+|    509 |  403000 | Sally      | Williams  | 2014-02-12 00:00:00 | 2014-03-04 00:00:00 |
+|    510 |  404950 | William    | Morris    | 2014-02-01 00:00:00 | 2014-02-21 00:00:00 |
+|    511 |  403000 | Sally      | Williams  | 2014-02-01 00:00:00 | 2014-02-21 00:00:00 |
+|    515 |  409150 | Joan       | Martin    | 2014-02-02 00:00:00 | 2014-02-22 00:00:00 |
+|    516 |  409150 | Joan       | Martin    | 2014-02-02 00:00:00 | 2014-02-22 00:00:00 |
+|    518 |  409150 | Joan       | Martin    | 2014-02-03 00:00:00 | 2014-02-23 00:00:00 |
+|    519 |  401890 | William    | Northrep  | 2014-04-04 00:00:00 | 2014-04-24 00:00:00 |
+|    520 |  404900 | Al         | Williams  | 2014-04-04 00:00:00 | 2014-04-24 00:00:00 |
+|    522 |  409150 | Joan       | Martin    | 2014-04-05 00:00:00 | 2014-04-25 00:00:00 |
+|    523 |  409150 | Joan       | Martin    | 2014-04-05 00:00:00 | 2014-04-25 00:00:00 |
+|    524 |  409160 | Jane       | Martin    | 2014-04-07 00:00:00 | 2014-04-27 00:00:00 |
+|    525 |  409160 | Jane       | Martin    | 2014-05-09 00:00:00 | 2014-05-29 00:00:00 |
+|    527 |  403050 | Alexis     | Hamilton  | 2014-05-01 00:00:00 | 2014-05-21 00:00:00 |
+|    528 |  403000 | Sally      | Williams  | 2014-05-01 00:00:00 | 2014-05-21 00:00:00 |
+|    529 |  403000 | Sally      | Williams  | 2014-05-12 00:00:00 | 2014-06-01 00:00:00 |
+|    535 |  404950 | William    | Morris    | 2014-05-12 00:00:00 | 2014-06-01 00:00:00 |
+|    536 |  403000 | Sally      | Williams  | 2014-05-12 00:00:00 | 2014-06-01 00:00:00 |
+|    540 |  404950 | William    | Morris    | 2014-06-02 00:00:00 | 2014-06-22 00:00:00 |
+|    550 |  903000 | Arnold     | McGold    | 2014-08-02 00:00:00 | 2014-08-22 00:00:00 |
+|    551 |  903000 | Arnold     | McGold    | 2014-08-03 00:00:00 | 2014-08-23 00:00:00 |
+|    552 |  401250 | Samuel     | Morse     | 2014-08-12 00:00:00 | 2014-09-01 00:00:00 |
+|    605 |  404100 | D. K.      | Button    | 2013-09-05 00:00:00 | 2013-09-25 00:00:00 |
+|    606 |  409160 | Jane       | Martin    | 2013-09-07 00:00:00 | 2013-09-27 00:00:00 |
+|    607 |  409160 | Jane       | Martin    | 2013-09-15 00:00:00 | 2013-10-05 00:00:00 |
+|    608 |  403000 | Sally      | Williams  | 2013-09-26 00:00:00 | 2013-10-16 00:00:00 |
+|    609 |  900300 | Arnold     | McGold    | 2013-09-27 00:00:00 | 2013-10-17 00:00:00 |
+|    610 |  903000 | Arnold     | McGold    | 2013-09-27 00:00:00 | 2013-10-17 00:00:00 |
+|    611 |  403000 | Sally      | Williams  | 2013-09-30 00:00:00 | 2013-10-20 00:00:00 |
+|    715 |  409150 | Joan       | Martin    | 2014-04-05 00:00:00 | 2014-04-25 00:00:00 |
+|    716 |  409150 | Joan       | Martin    | 2014-02-06 00:00:00 | 2014-02-26 00:00:00 |
+|    718 |  409150 | Joan       | Martin    | 2014-04-08 00:00:00 | 2014-04-28 00:00:00 |
+|    805 |  404100 | D. K.      | Button    | 2014-01-05 00:00:00 | 2014-01-25 00:00:00 |
+|    806 |  409160 | Jane       | Martin    | 2014-01-07 00:00:00 | 2014-01-27 00:00:00 |
+|    807 |  409160 | Jane       | Martin    | 2014-01-15 00:00:00 | 2014-02-04 00:00:00 |
+|    808 |  403000 | Sally      | Williams  | 2014-01-26 00:00:00 | 2014-02-15 00:00:00 |
+|    809 |  900300 | Arnold     | McGold    | 2014-01-27 00:00:00 | 2014-02-16 00:00:00 |
+|    810 |  903000 | Arnold     | McGold    | 2014-01-27 00:00:00 | 2014-02-16 00:00:00 |
+|    811 |  403000 | Sally      | Williams  | 2014-01-31 00:00:00 | 2014-02-20 00:00:00 |
++--------+---------+------------+-----------+---------------------+---------------------+
+97 rows in set (0.00 sec)
+
+--------------
+-- Query 9
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Display the product ID and the number of orders placed for each product. Show the results in
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- decreasing order and label result column NumOrders.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT p.prod_id, SUM(quantity_ordered) AS NumOrders
+FROM products AS p
+JOIN order_details AS d ON p.prod_id = d.prod_id
+GROUP BY prod_id
+ORDER BY NumOrders DESC
+--------------
+
++---------+-----------+
+| prod_id | NumOrders |
++---------+-----------+
+|    1150 |       204 |
+|    1010 |       126 |
+|    1080 |        92 |
+|    1020 |        52 |
+|    1060 |        48 |
+|    1070 |        47 |
+|    1130 |        40 |
+|    1040 |        36 |
+|    1141 |        31 |
+|    1030 |        30 |
+|    1125 |        28 |
+|    4576 |        20 |
+|    1090 |        19 |
+|    1110 |        19 |
+|    2014 |        18 |
+|    1120 |        16 |
+|    1152 |        14 |
+|    1050 |        13 |
+|    2984 |        12 |
+|    5002 |        11 |
+|    1140 |        10 |
+|    4577 |        10 |
+|    5005 |         7 |
+|    1100 |         7 |
+|    1000 |         6 |
+|    2947 |         6 |
+|    1071 |         6 |
+|    5008 |         6 |
+|    5004 |         5 |
+|    1072 |         4 |
+|    2747 |         3 |
+|    2746 |         2 |
+|    2412 |         1 |
+|    1151 |         1 |
++---------+-----------+
+34 rows in set (0.01 sec)
+
+--------------
+-- Query 10
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Write a SELECT statement that answers this question: Which customers have ordered more
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- than one product? Return these columns:
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- • The customer ID from the CUSTOMERS table
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- • The count of distinct products from the customer’s orders
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT c.cust_id, COUNT(DISTINCT d.prod_id) AS number_of_items
+FROM customers AS c
+JOIN orders AS o ON c.cust_id = o.cust_id
+JOIN order_details AS d ON o.ord_id = d.ord_id
+GROUP BY c.cust_id
+--------------
+
++---------+-----------------+
+| cust_id | number_of_items |
++---------+-----------------+
+|  400300 |               2 |
+|  401250 |               6 |
+|  401890 |               2 |
+|  402100 |               8 |
+|  403000 |              15 |
+|  403010 |               1 |
+|  403050 |               4 |
+|  403100 |               5 |
+|  404000 |               2 |
+|  404100 |               6 |
+|  404900 |               2 |
+|  404950 |              10 |
+|  408770 |               6 |
+|  409030 |               5 |
+|  409150 |              13 |
+|  409160 |               8 |
+|  409190 |               1 |
+|  900300 |               5 |
+|  903000 |               8 |
+|  915001 |               4 |
++---------+-----------------+
+20 rows in set (0.00 sec)
+
+--------------
+-- Query 11
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Consider the groups of products where each group contains the products that are from the same
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- category. For each such group that has more than 5 products, display category ID, number of products in the
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- group, and average price of the products in the group.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT catg_id, COUNT(DISTINCT prod_id) AS number_of_products, AVG(prod_list_price) AS average
+FROM products
+GROUP BY catg_id
+HAVING number_of_products > 5
+--------------
+
++---------+--------------------+------------+
+| catg_id | number_of_products | average    |
++---------+--------------------+------------+
+| HW      |                 10 |  67.641000 |
+| MUS     |                 11 |  13.878182 |
+| PET     |                 11 | 123.192727 |
+| SPG     |                  6 | 178.125000 |
++---------+--------------------+------------+
+4 rows in set (0.00 sec)
+
+--------------
+-- Query 12
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Display the average price and category ID for each product category.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT AVG(prod_list_price) AS avgPrice, catg_id
+FROM products
+GROUP BY catg_id
+--------------
+
++------------+---------+
+| avgPrice   | catg_id |
++------------+---------+
+| 479.986000 | APL     |
+|   8.750000 | GFD     |
+|  23.875000 | HD      |
+|  67.641000 | HW      |
+|  13.878182 | MUS     |
+| 123.192727 | PET     |
+| 178.125000 | SPG     |
++------------+---------+
+7 rows in set (0.00 sec)
+
+--------------
+-- Query 13
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- Use UNION ALL to return orders with either a Sporting goods product or a pet supply product or
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- both.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT p.prod_id, catg_id, prod_name
+FROM orders AS o
+JOIN order_details AS d ON o.ord_id = d.ord_id
+JOIN products AS p ON d.prod_id = p.prod_id
+WHERE catg_id = 'SPG'
+
+UNION ALL
+
+SELECT p.prod_id, catg_id, prod_name
+FROM orders AS o
+JOIN order_details AS d ON o.ord_id = d.ord_id
+JOIN products AS p ON d.prod_id = p.prod_id
+WHERE catg_id = 'PET'
+--------------
+
++---------+---------+--------------------+
+| prod_id | catg_id | prod_name          |
++---------+---------+--------------------+
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1010 | SPG     | Weights            |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1020 | SPG     | Dartboard          |
+|    1030 | SPG     | Basketball         |
+|    1030 | SPG     | Basketball         |
+|    1030 | SPG     | Basketball         |
+|    1030 | SPG     | Basketball         |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1040 | SPG     | Treadmill          |
+|    1050 | SPG     | Stationary bike    |
+|    1050 | SPG     | Stationary bike    |
+|    1050 | SPG     | Stationary bike    |
+|    1050 | SPG     | Stationary bike    |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1060 | SPG     | Mountain bike      |
+|    1140 | PET     | Bird cage- simple  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1150 | PET     | Cat exerciser      |
+|    1150 | PET     | Cat exerciser      |
+|    1150 | PET     | Cat exerciser      |
+|    1150 | PET     | Cat exerciser      |
+|    1150 | PET     | Cat exerciser      |
+|    1151 | PET     | Cat pillow         |
+|    1152 | PET     | Cat pillow Leather |
+|    1152 | PET     | Cat pillow Leather |
+|    1152 | PET     | Cat pillow Leather |
+|    1152 | PET     | Cat pillow Leather |
+|    1152 | PET     | Cat pillow Leather |
+|    1152 | PET     | Cat pillow Leather |
+|    4576 | PET     | Cosmo cat nip      |
+|    4577 | PET     | Cat leash          |
+|    4577 | PET     | Cat leash          |
+|    4577 | PET     | Cat leash          |
+|    4577 | PET     | Cat leash          |
++---------+---------+--------------------+
+77 rows in set (0.05 sec)
+
+--------------
+-- Query 14
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- USE UNION to return HW products purchased with either a Nov or Dec date.
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT p.prod_id, catg_id, prod_name
+FROM products AS p
+JOIN order_details AS d ON p.prod_id = d.prod_id
+JOIN orders AS o ON d.ord_id = o.ord_id
+WHERE ord_date LIKE '%-11-%'
+
+UNION
+
+SELECT p.prod_id, catg_id, prod_name
+FROM products AS p
+JOIN order_details AS d ON p.prod_id = d.prod_id
+JOIN orders AS o ON d.ord_id = o.ord_id
+WHERE ord_date LIKE '%-12-%'
+--------------
+
++---------+---------+--------------------+
+| prod_id | catg_id | prod_name          |
++---------+---------+--------------------+
+|    1150 | PET     | Cat exerciser      |
+|    1141 | PET     | Bird cage- deluxe  |
+|    1110 | HW      | Pancake griddle    |
+|    1080 | HW      | Cornpopper         |
+|    1130 | APL     | Mini Freezer       |
+|    1000 | HW      | Hand Mixer         |
+|    1120 | APL     | Washer             |
+|    1100 | HW      | Blender            |
+|    1030 | SPG     | Basketball         |
+|    1125 | APL     | Dryer              |
+|    1070 | HW      | Iron               |
+|    1010 | SPG     | Weights            |
+|    1020 | SPG     | Dartboard          |
+|    1040 | SPG     | Treadmill          |
+|    1050 | SPG     | Stationary bike    |
+|    1060 | SPG     | Mountain bike      |
+|    5008 | HD      | Claw Framing       |
+|    5005 | HD      | Shingler Hammer    |
+|    1071 | HW      | Iron               |
+|    1151 | PET     | Cat pillow         |
+|    1152 | PET     | Cat pillow Leather |
+|    1090 | HW      | Gas grill          |
++---------+---------+--------------------+
+22 rows in set (0.00 sec)
+
+mysql> show tables'
+    '> ;
+    '> '
+    -> ^C
+mysql> show tables;
+--------------
+show tables
+--------------
+
++---------------------+
+| Tables_in_megastore |
++---------------------+
+| categories          |
+| credit_ratings      |
+| cust_address        |
+| customers           |
+| departments         |
+| employees           |
+| inventory           |
+| jobs                |
+| locations           |
+| order_details       |
+| orders              |
+| products            |
+| shipping_modes      |
+| warehouses          |
++---------------------+
+14 rows in set (0.03 sec)
+
+mysql> select AVG(prod_list_price) FROM products;
+--------------
+select AVG(prod_list_price) FROM products
+--------------
+
++----------------------+
+| AVG(prod_list_price) |
++----------------------+
+|           117.670816 |
++----------------------+
+1 row in set (0.02 sec)
+
+mysql> select AVG(prod_list_price) FROM products WHERE catg_id = 'PET';
+--------------
+select AVG(prod_list_price) FROM products WHERE catg_id = 'PET'
+--------------
+
++----------------------+
+| AVG(prod_list_price) |
++----------------------+
+|           123.192727 |
++----------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT COUNT(*)
+    -> FROM employees
+    -> WHERE salary > 50000; 
+--------------
+SELECT COUNT(*)
+FROM employees
+WHERE salary > 50000
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.04 sec)
+
+mysql> SELECT COUNT(*)
+    -> FROM employees
+    -> WHERE salary > 50000
+    -> GROUP BY employee_id, last_name, first_name, salary, department_id;
+--------------
+SELECT COUNT(*)
+FROM employees
+WHERE salary > 50000
+GROUP BY employee_id, last_name, first_name, salary, department_id
+--------------
+
+ERROR 1054 (42S22): Unknown column 'employee_id' in 'group statement'
+mysql> select salary FROM employees;
+--------------
+select salary FROM employees
+--------------
+
++----------+
+| salary   |
++----------+
+| 24000.00 |
+| 17000.00 |
+| 17000.00 |
+|  9000.00 |
+|  6000.00 |
+|  4200.00 |
+|  5800.00 |
+|  3500.00 |
+|  3100.00 |
+|  2600.00 |
+|  2500.00 |
+| 10500.00 |
+| 11000.00 |
+|  8600.00 |
+|  7000.00 |
+|  4400.00 |
+| 13000.00 |
+|  3900.00 |
+| 12000.00 |
+|  8300.00 |
+|  9500.00 |
+|  7500.00 |
+|  7300.00 |
+|  7300.00 |
+|  9600.00 |
+|  8600.00 |
+|  3500.00 |
+|  4000.00 |
+|  3700.00 |
+|  2600.00 |
+|  8000.00 |
+|  7800.00 |
+|  8100.00 |
+|  4300.00 |
+|  4100.00 |
+|  4400.00 |
+|  5000.00 |
+|  5400.00 |
+|  5200.00 |
+|  4900.00 |
++----------+
+40 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM employees WHERE salary > 50000 GROUP BY emp_id;
+--------------
+SELECT COUNT(*) FROM employees WHERE salary > 50000 GROUP BY emp_id
+--------------
+
+Empty set (0.01 sec)
+
+mysql> SELECT COUNT(*)
+    -> FROM employees
+    -> WHERE salary > 50000; 
+--------------
+SELECT COUNT(*)
+FROM employees
+WHERE salary > 50000
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM employees WHERE salary > 500;
+--------------
+SELECT COUNT(*) FROM employees WHERE salary > 500
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|       40 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM employees WHERE salary > 500 GROUP BY emp_id
+    -> ;
+--------------
+SELECT COUNT(*) FROM employees WHERE salary > 500 GROUP BY emp_id
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
++----------+
+40 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM employees WHERE salary > 500 GROUP BY first_name;
+--------------
+SELECT COUNT(*) FROM employees WHERE salary > 500 GROUP BY first_name
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        2 |
+|        2 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
++----------+
+38 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM employees WHERE salary > 500 GROUP BY first_name;
+--------------
+SELECT COUNT(*) FROM employees WHERE salary > 500 GROUP BY first_name
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        2 |
+|        2 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
++----------+
+38 rows in set (0.00 sec)
+
+mysql> CREATE TABLE project_hist
+    -> ( employee_id INT,
+    -> start_date DATE,
+    -> end_date DATE,
+    -> tasked_hours INT,
+    -> hourly_rate DECIMAL(5,2),
+    -> project_cost DECIMAL(10,2),
+    -> ^C
+mysql> use test;
+Database changed
+mysql> CREATE TABLE project_hist
+    -> ( employee_id INT,
+    -> start_date DATE,
+    -> end_date DATE,
+    -> tasked_hours INT,
+    -> hourly_rate DECIMAL(5,2),
+    -> project_cost DECIMAL(10,2),
+    -> CONSTRAINT project_hist_pk PRIMARY KEY(employee_id, start_date));
+--------------
+CREATE TABLE project_hist
+( employee_id INT,
+start_date DATE,
+end_date DATE,
+tasked_hours INT,
+hourly_rate DECIMAL(5,2),
+project_cost DECIMAL(10,2),
+CONSTRAINT project_hist_pk PRIMARY KEY(employee_id, start_date))
+--------------
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show project_hist;
+--------------
+show project_hist
+--------------
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'project_hist' at line 1
+mysql> DESCRIBE proejct_hist;
+--------------
+DESCRIBE proejct_hist
+--------------
+
+ERROR 1146 (42S02): Table 'test.proejct_hist' doesn't exist
+mysql> DESCRIBE project_hist;
+--------------
+DESCRIBE project_hist
+--------------
+
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| employee_id  | int           | NO   | PRI | NULL    |       |
+| start_date   | date          | NO   | PRI | NULL    |       |
+| end_date     | date          | YES  |     | NULL    |       |
+| tasked_hours | int           | YES  |     | NULL    |       |
+| hourly_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| project_cost | decimal(10,2) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+6 rows in set (0.16 sec)
+
+mysql> use megastore;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select FROM orders;
+--------------
+select FROM orders
+--------------
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM orders' at line 1
+mysql> select * from orders;
+--------------
+select * from orders
+--------------
+
++--------+---------------------+---------+----------+---------------+------------+--------------+
+| ord_id | ord_date            | cust_id | ord_mode | shipping_mode | ord_status | sales_rep_id |
++--------+---------------------+---------+----------+---------------+------------+--------------+
+|    105 | 2013-10-01 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          178 |
+|    106 | 2013-10-01 00:00:00 |  401250 | DIRECT   | FEDEX1        |          2 |          208 |
+|    107 | 2013-10-02 00:00:00 |  403050 | ONLINE   | USPS1         |          2 |          210 |
+|    108 | 2013-10-02 00:00:00 |  403000 | ONLINE   | USPS1         |          1 |          174 |
+|    109 | 2013-10-12 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          209 |
+|    110 | 2013-10-12 00:00:00 |  404950 | DIRECT   | FEDEX1        |          1 |          174 |
+|    111 | 2013-11-01 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          208 |
+|    112 | 2013-11-08 00:00:00 |  401890 | DIRECT   | USPS1         |          2 |          178 |
+|    113 | 2013-11-08 00:00:00 |  401250 | ONLINE   | FEDEX2        |          2 |          210 |
+|    114 | 2013-11-08 00:00:00 |  402100 | DIRECT   | USPS1         |          1 |          174 |
+|    115 | 2013-11-08 00:00:00 |  402100 | ONLINE   | USPS1         |          1 |          210 |
+|    116 | 2013-11-12 00:00:00 |  405000 | ONLINE   | NULL          |          9 |          209 |
+|    117 | 2013-11-28 00:00:00 |  402100 | ONLINE   | NULL          |          9 |          178 |
+|    118 | 2013-11-28 00:00:00 |  403010 | DIRECT   | NULL          |          3 |          174 |
+|    119 | 2013-11-28 00:00:00 |  401250 | DIRECT   | NULL          |          3 |          176 |
+|    120 | 2014-01-02 00:00:00 |  903000 | DIRECT   | NULL          |          3 |          178 |
+|    121 | 2014-01-03 00:00:00 |  903000 | DIRECT   | NULL          |          3 |          208 |
+|    122 | 2014-01-23 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          174 |
+|    123 | 2013-12-05 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          178 |
+|    124 | 2013-12-07 00:00:00 |  409160 | DIRECT   | FEDEX1        |          3 |          209 |
+|    125 | 2013-12-09 00:00:00 |  409160 | DIRECT   | FEDEX1        |          3 |          210 |
+|    126 | 2013-12-15 00:00:00 |  409190 | DIRECT   | FEDEX1        |          3 |          174 |
+|    127 | 2013-12-15 00:00:00 |  915001 | ONLINE   | USPS1         |          4 |          176 |
+|    128 | 2013-12-15 00:00:00 |  409030 | ONLINE   | FEDEX1        |          4 |          178 |
+|    129 | 2013-12-15 00:00:00 |  915001 | DIRECT   | FEDEX1        |          7 |          208 |
+|    130 | 2013-12-30 00:00:00 |  409030 | ONLINE   | USPS1         |          7 |          209 |
+|    218 | 2013-08-08 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          174 |
+|    223 | 2013-08-05 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          174 |
+|    224 | 2013-08-07 00:00:00 |  409160 | DIRECT   | FEDEX1        |          3 |          176 |
+|    225 | 2013-08-09 00:00:00 |  409160 | DIRECT   | FEDEX1        |          3 |          176 |
+|    227 | 2013-08-01 00:00:00 |  403050 | ONLINE   | USPS1         |          2 |          178 |
+|    301 | 2014-06-04 00:00:00 |  401250 | DIRECT   | FEDEX2        |          9 |          178 |
+|    302 | 2014-06-04 00:00:00 |  404000 | DIRECT   | USPS1         |          2 |          208 |
+|    303 | 2014-06-10 00:00:00 |  404100 | DIRECT   | USPS1         |          2 |          208 |
+|    306 | 2014-06-04 00:00:00 |  903000 | DIRECT   | USPS1         |          9 |          209 |
+|    307 | 2014-06-04 00:00:00 |  900300 | DIRECT   | USPS1         |          9 |          210 |
+|    312 | 2014-06-07 00:00:00 |  903000 | DIRECT   | USPS1         |          5 |          174 |
+|    313 | 2014-06-07 00:00:00 |  903000 | DIRECT   | USPS1         |          5 |          176 |
+|    324 | 2014-06-11 00:00:00 |  409030 | DIRECT   | UPSGR         |          9 |          176 |
+|    378 | 2014-06-14 00:00:00 |  400300 | DIRECT   | USPS1         |          9 |          178 |
+|    390 | 2014-06-04 00:00:00 |  403000 | DIRECT   | FEDEX1        |          9 |          174 |
+|    395 | 2014-06-04 00:00:00 |  403000 | DIRECT   | FEDEX1        |          9 |          176 |
+|    400 | 2013-10-15 00:00:00 |  403100 | ONLINE   | USPS1         |          2 |          178 |
+|    401 | 2013-10-15 00:00:00 |  403100 | ONLINE   | USPS1         |          2 |          208 |
+|    402 | 2013-10-18 00:00:00 |  403100 | ONLINE   | USPS1         |          2 |          209 |
+|    405 | 2013-11-19 00:00:00 |  408770 | DIRECT   | FEDEX1        |          1 |          176 |
+|    407 | 2013-11-15 00:00:00 |  403100 | DIRECT   | FEDEX1        |          1 |          209 |
+|    408 | 2013-11-20 00:00:00 |  404950 | DIRECT   | FEDEX1        |          1 |          209 |
+|    411 | 2014-07-01 00:00:00 |  404950 | DIRECT   | FEDEX1        |          1 |          208 |
+|    412 | 2014-07-01 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          208 |
+|    413 | 2014-07-07 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          208 |
+|    414 | 2014-07-20 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          209 |
+|    415 | 2014-07-23 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          174 |
+|    503 | 2014-01-04 00:00:00 |  404100 | DIRECT   | USPS1         |          2 |          210 |
+|    504 | 2014-01-11 00:00:00 |  404100 | DIRECT   | UPSGR         |          9 |          174 |
+|    505 | 2014-01-12 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          174 |
+|    506 | 2014-01-12 00:00:00 |  401250 | DIRECT   | FEDEX1        |          2 |          176 |
+|    507 | 2014-02-01 00:00:00 |  403050 | ONLINE   | USPS1         |          2 |          178 |
+|    508 | 2014-02-01 00:00:00 |  403000 | ONLINE   | USPS1         |          1 |          174 |
+|    509 | 2014-02-12 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          178 |
+|    510 | 2014-02-01 00:00:00 |  404950 | DIRECT   | FEDEX1        |          1 |          174 |
+|    511 | 2014-02-01 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          178 |
+|    515 | 2014-02-02 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          208 |
+|    516 | 2014-02-02 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          209 |
+|    518 | 2014-02-03 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          210 |
+|    519 | 2014-04-04 00:00:00 |  401890 | ONLINE   | USPS1         |          3 |          174 |
+|    520 | 2014-04-04 00:00:00 |  404900 | ONLINE   | USPS1         |          3 |          174 |
+|    522 | 2014-04-05 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          176 |
+|    523 | 2014-04-05 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          209 |
+|    524 | 2014-04-07 00:00:00 |  409160 | DIRECT   | FEDEX1        |          3 |          210 |
+|    525 | 2014-05-09 00:00:00 |  409160 | DIRECT   | FEDEX1        |          3 |          174 |
+|    527 | 2014-05-01 00:00:00 |  403050 | ONLINE   | USPS1         |          2 |          174 |
+|    528 | 2014-05-01 00:00:00 |  403000 | ONLINE   | USPS1         |          1 |          176 |
+|    529 | 2014-05-12 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          178 |
+|    535 | 2014-05-12 00:00:00 |  404950 | DIRECT   | FEDEX1        |          1 |          208 |
+|    536 | 2014-05-12 00:00:00 |  403000 | DIRECT   | FEDEX1        |          1 |          209 |
+|    540 | 2014-06-02 00:00:00 |  404950 | DIRECT   | FEDEX1        |          1 |          210 |
+|    550 | 2014-08-02 00:00:00 |  903000 | DIRECT   | NULL          |          3 |          176 |
+|    551 | 2014-08-03 00:00:00 |  903000 | DIRECT   | NULL          |          3 |          178 |
+|    552 | 2014-08-12 00:00:00 |  401250 | DIRECT   | FEDEX1        |          2 |          210 |
+|    605 | 2013-09-05 00:00:00 |  404100 | DIRECT   | UPSGR         |          1 |          208 |
+|    606 | 2013-09-07 00:00:00 |  409160 | DIRECT   | FEDEX1        |          1 |          209 |
+|    607 | 2013-09-15 00:00:00 |  409160 | DIRECT   | FEDEX1        |          1 |          209 |
+|    608 | 2013-09-26 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          209 |
+|    609 | 2013-09-27 00:00:00 |  900300 | DIRECT   | USPS1         |          1 |          210 |
+|    610 | 2013-09-27 00:00:00 |  903000 | DIRECT   | UPSGR         |          1 |          209 |
+|    611 | 2013-09-30 00:00:00 |  403000 | DIRECT   | USPS1         |          1 |          210 |
+|    715 | 2014-04-05 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          178 |
+|    716 | 2014-02-06 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          178 |
+|    718 | 2014-04-08 00:00:00 |  409150 | ONLINE   | USPS1         |          3 |          210 |
+|    805 | 2014-01-05 00:00:00 |  404100 | DIRECT   | UPSGR         |          1 |          176 |
+|    806 | 2014-01-07 00:00:00 |  409160 | DIRECT   | FEDEX1        |          1 |          207 |
+|    807 | 2014-01-15 00:00:00 |  409160 | DIRECT   | FEDEX1        |          1 |          208 |
+|    808 | 2014-01-26 00:00:00 |  403000 | DIRECT   | UPSGR         |          1 |          209 |
+|    809 | 2014-01-27 00:00:00 |  900300 | DIRECT   | USPS1         |          1 |          174 |
+|    810 | 2014-01-27 00:00:00 |  903000 | DIRECT   | UPSGR         |          1 |          176 |
+|    811 | 2014-01-31 00:00:00 |  403000 | DIRECT   | USPS1         |          1 |          178 |
++--------+---------------------+---------+----------+---------------+------------+--------------+
+97 rows in set (0.01 sec)
+
+mysql> SELECT 5*2;
+--------------
+SELECT 5*2
+--------------
+
++-----+
+| 5*2 |
++-----+
+|  10 |
++-----+
+1 row in set (0.09 sec)
+
+mysql> select *;
+--------------
+select *
+--------------
+
+ERROR 1096 (HY000): No tables used
+mysql> select ord_id;
+--------------
+select ord_id
+--------------
+
+ERROR 1054 (42S22): Unknown column 'ord_id' in 'field list'

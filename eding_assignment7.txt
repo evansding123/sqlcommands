@@ -1,0 +1,446 @@
+mysql> source  /Users/evansding/my_scripts/eding_assignment7.sql;
+--------------
+/* Assignment7.sql
+  Evans Ding
+   CS 31A, Spring 2022
+*/
+
+/* put the database name into this command */
+USE megastore
+--------------
+
+Query OK, 0 rows affected (0.05 sec)
+
+--------------
+/* Query 1
+  Display the product ID, product description, and price of the least expensive product in the
+  database. (Use a subquery.)
+*/
+
+SELECT prod_id, prod_desc, MIN(prod_list_price)
+FROM products
+GROUP BY prod_id
+HAVING MIN(prod_list_price) =
+  (SELECT MIN(prod_list_price)
+  FROM products)
+--------------
+
++---------+-----------------------------------------+----------------------+
+| prod_id | prod_desc                               | MIN(prod_list_price) |
++---------+-----------------------------------------+----------------------+
+|    1142 | Bird seed mix with sunflowers           |                 2.50 |
+|    1143 | Bird seed mix with more sunflower seeds |                 2.50 |
++---------+-----------------------------------------+----------------------+
+2 rows in set (0.04 sec)
+
+--------------
+/*
+Question 2: Write a SQL statement that uses the IN operator to find the customer ID, first name, and last name
+of each customer for which as order was created on 10/01/2013. (Use a subquery.)
+*/
+
+SELECT cust_id, first_name, last_name
+FROM customers
+WHERE cust_id IN
+  (SELECT cust_id
+  FROM orders
+  WHERE ord_date = '2013-10-01')
+--------------
+
++---------+------------+-----------+
+| cust_id | first_name | last_name |
++---------+------------+-----------+
+|  403000 | Sally      | Williams  |
+|  401250 | Samuel     | Morse     |
++---------+------------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+/*
+Question 3: Repeat query 2, but this time, use the EXISTS operator in your answer.
+*/
+SELECT cust_id, first_name, last_name
+FROM customers
+WHERE EXISTS
+  (SELECT cust_id
+  FROM orders
+  WHERE orders.cust_id = customers.cust_id
+  AND ord_date = '2013-10-01')
+--------------
+
++---------+------------+-----------+
+| cust_id | first_name | last_name |
++---------+------------+-----------+
+|  403000 | Sally      | Williams  |
+|  401250 | Samuel     | Morse     |
++---------+------------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+/*
+Question 4: Display the order ID and order date for each order created for the customer William Morris. (Use a
+subquery.)
+*/
+
+SELECT ord_id, ord_date
+FROM orders
+WHERE ord_id IN
+  (SELECT ord_id
+  FROM customers
+  WHERE first_name = 'William'
+  AND last_name = 'Morris')
+--------------
+
++--------+---------------------+
+| ord_id | ord_date            |
++--------+---------------------+
+|    105 | 2013-10-01 00:00:00 |
+|    106 | 2013-10-01 00:00:00 |
+|    107 | 2013-10-02 00:00:00 |
+|    108 | 2013-10-02 00:00:00 |
+|    109 | 2013-10-12 00:00:00 |
+|    110 | 2013-10-12 00:00:00 |
+|    111 | 2013-11-01 00:00:00 |
+|    112 | 2013-11-08 00:00:00 |
+|    113 | 2013-11-08 00:00:00 |
+|    114 | 2013-11-08 00:00:00 |
+|    115 | 2013-11-08 00:00:00 |
+|    116 | 2013-11-12 00:00:00 |
+|    117 | 2013-11-28 00:00:00 |
+|    118 | 2013-11-28 00:00:00 |
+|    119 | 2013-11-28 00:00:00 |
+|    120 | 2014-01-02 00:00:00 |
+|    121 | 2014-01-03 00:00:00 |
+|    122 | 2014-01-23 00:00:00 |
+|    123 | 2013-12-05 00:00:00 |
+|    124 | 2013-12-07 00:00:00 |
+|    125 | 2013-12-09 00:00:00 |
+|    126 | 2013-12-15 00:00:00 |
+|    127 | 2013-12-15 00:00:00 |
+|    128 | 2013-12-15 00:00:00 |
+|    129 | 2013-12-15 00:00:00 |
+|    130 | 2013-12-30 00:00:00 |
+|    218 | 2013-08-08 00:00:00 |
+|    223 | 2013-08-05 00:00:00 |
+|    224 | 2013-08-07 00:00:00 |
+|    225 | 2013-08-09 00:00:00 |
+|    227 | 2013-08-01 00:00:00 |
+|    301 | 2014-06-04 00:00:00 |
+|    302 | 2014-06-04 00:00:00 |
+|    303 | 2014-06-10 00:00:00 |
+|    306 | 2014-06-04 00:00:00 |
+|    307 | 2014-06-04 00:00:00 |
+|    312 | 2014-06-07 00:00:00 |
+|    313 | 2014-06-07 00:00:00 |
+|    324 | 2014-06-11 00:00:00 |
+|    378 | 2014-06-14 00:00:00 |
+|    390 | 2014-06-04 00:00:00 |
+|    395 | 2014-06-04 00:00:00 |
+|    400 | 2013-10-15 00:00:00 |
+|    401 | 2013-10-15 00:00:00 |
+|    402 | 2013-10-18 00:00:00 |
+|    405 | 2013-11-19 00:00:00 |
+|    407 | 2013-11-15 00:00:00 |
+|    408 | 2013-11-20 00:00:00 |
+|    411 | 2014-07-01 00:00:00 |
+|    412 | 2014-07-01 00:00:00 |
+|    413 | 2014-07-07 00:00:00 |
+|    414 | 2014-07-20 00:00:00 |
+|    415 | 2014-07-23 00:00:00 |
+|    503 | 2014-01-04 00:00:00 |
+|    504 | 2014-01-11 00:00:00 |
+|    505 | 2014-01-12 00:00:00 |
+|    506 | 2014-01-12 00:00:00 |
+|    507 | 2014-02-01 00:00:00 |
+|    508 | 2014-02-01 00:00:00 |
+|    509 | 2014-02-12 00:00:00 |
+|    510 | 2014-02-01 00:00:00 |
+|    511 | 2014-02-01 00:00:00 |
+|    515 | 2014-02-02 00:00:00 |
+|    516 | 2014-02-02 00:00:00 |
+|    518 | 2014-02-03 00:00:00 |
+|    519 | 2014-04-04 00:00:00 |
+|    520 | 2014-04-04 00:00:00 |
+|    522 | 2014-04-05 00:00:00 |
+|    523 | 2014-04-05 00:00:00 |
+|    524 | 2014-04-07 00:00:00 |
+|    525 | 2014-05-09 00:00:00 |
+|    527 | 2014-05-01 00:00:00 |
+|    528 | 2014-05-01 00:00:00 |
+|    529 | 2014-05-12 00:00:00 |
+|    535 | 2014-05-12 00:00:00 |
+|    536 | 2014-05-12 00:00:00 |
+|    540 | 2014-06-02 00:00:00 |
+|    550 | 2014-08-02 00:00:00 |
+|    551 | 2014-08-03 00:00:00 |
+|    552 | 2014-08-12 00:00:00 |
+|    605 | 2013-09-05 00:00:00 |
+|    606 | 2013-09-07 00:00:00 |
+|    607 | 2013-09-15 00:00:00 |
+|    608 | 2013-09-26 00:00:00 |
+|    609 | 2013-09-27 00:00:00 |
+|    610 | 2013-09-27 00:00:00 |
+|    611 | 2013-09-30 00:00:00 |
+|    715 | 2014-04-05 00:00:00 |
+|    716 | 2014-02-06 00:00:00 |
+|    718 | 2014-04-08 00:00:00 |
+|    805 | 2014-01-05 00:00:00 |
+|    806 | 2014-01-07 00:00:00 |
+|    807 | 2014-01-15 00:00:00 |
+|    808 | 2014-01-26 00:00:00 |
+|    809 | 2014-01-27 00:00:00 |
+|    810 | 2014-01-27 00:00:00 |
+|    811 | 2014-01-31 00:00:00 |
++--------+---------------------+
+97 rows in set (0.01 sec)
+
+--------------
+/*
+Question 5: Display the product ID, product description, product price, and category for each product that has a
+unit price greater than the unit price of every product in category ID PET. Use either the ALL or ANY operator in
+your query. (Hint: Make sure you select the correct operator.)
+*/
+
+SELECT prod_id, prod_desc, catg_id, prod_list_price
+FROM products
+WHERE prod_list_price >
+  (SELECT MAX(prod_list_price)
+  FROM products
+  WHERE catg_id = 'PET')
+--------------
+
++---------+-------------------------------+---------+-----------------+
+| prod_id | prod_desc                     | catg_id | prod_list_price |
++---------+-------------------------------+---------+-----------------+
+|    1126 | Low Energy washer Dryer combo | APL     |          850.00 |
++---------+-------------------------------+---------+-----------------+
+1 row in set (0.02 sec)
+
+--------------
+/*
+Question 6: Display all those employees who have a salary greater than that of an employee whose last name is
+Ernst and are in the same department as an employee whose last name is Chen.
+*/
+
+SELECT *
+FROM employees
+WHERE salary >
+  (SELECT MAX(salary)
+  FROM employees
+  WHERE last_name = 'Ernst'
+ )
+AND dept_id = (
+    SELECT dept_id
+    FROM employees
+    WHERE last_name = 'Chen'
+  )
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+/*
+Question 7: Display the department ID and minimum salary of all employees, grouped by department ID. This
+minimum salary must be greater than the minimum salary of those employees whose department ID is not
+equal to 50.
+*/
+
+SELECT dept_id, MIN(salary)
+FROM employees
+GROUP BY dept_id
+HAVING MIN(salary) >
+  (SELECT MIN(salary)
+  FROM employees
+  WHERE dept_id != 50)
+--------------
+
++---------+-------------+
+| dept_id | MIN(salary) |
++---------+-------------+
+|    NULL |     7000.00 |
+|      10 |     4100.00 |
+|      60 |     4200.00 |
+|      80 |     8600.00 |
+|      85 |     7300.00 |
+|      90 |    17000.00 |
+|     110 |     5200.00 |
++---------+-------------+
+7 rows in set (0.00 sec)
+
+--------------
+/*
+Question 8: Write a SQL statement that finds the last names of all employees whose salaries are the same as the
+minimum salary for any department.
+*/
+
+SELECT last_name
+FROM employees
+WHERE salary IN
+  (SELECT MIN(salary)
+  FROM employees
+  GROUP BY dept_id)
+--------------
+
++----------------+
+| last_name      |
++----------------+
+| Kochhar        |
+| De Haan        |
+| Lorentz        |
+| Vargas         |
+| Taylor         |
+| Grant          |
+| Alves Rocha    |
+| Almeida Castro |
+| Steiner        |
+| Stocks         |
+| Ricci          |
+| Loermans       |
++----------------+
+12 rows in set (0.00 sec)
+
+--------------
+-- SELECT MIN(salary)
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+-- FROM employees;
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/*
+Question 9: Write a pair-wise subquery listing the last name, first name, department ID, and manager ID for all
+employees that have the same department ID and manager ID as employee with ID 109. Exclude employee 109
+from the result set.
+*/
+
+SELECT last_name, first_name, dept_id, manager_id
+FROM employees
+WHERE (dept_id, manager_id) IN
+(SELECT dept_id, manager_id
+FROM employees
+WHERE emp_id = 109)
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+/*
+Question 10: Write a non-pair-wise subquery listing the last name, first name, department ID, and manager ID
+for all employees that have the same department ID and manager ID as employee 109.
+*/
+
+SELECT last_name, first_name, dept_id, manager_id
+FROM employees
+WHERE dept_id IN
+(SELECT dept_id
+FROM employees
+WHERE emp_id = 109)
+AND manager_id IN
+(SELECT manager_id
+FROM employees
+WHERE emp_id = 109)
+AND emp_id != 109
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+/*
+Question 11: Write a SQL statement that lists the highest earners for each department. Include the last name,
+department ID, and the salary for each employee.
+*/
+
+SELECT last_name, dept_id, salary
+FROM employees
+WHERE salary IN
+(SELECT MAX(salary)
+FROM employees
+GROUP BY dept_id)
+--------------
+
++---------------+---------+----------+
+| last_name     | dept_id | salary   |
++---------------+---------+----------+
+| King          |      90 | 24000.00 |
+| Hunold        |      60 |  9000.00 |
+| Mourgos       |      50 |  5800.00 |
+| Abel          |      80 | 11000.00 |
+| Grant         |    NULL |  7000.00 |
+| Whalen        |      10 |  4400.00 |
+| Hartstein     |      20 | 13000.00 |
+| Higgins       |     110 | 12000.00 |
+| Barbosa Souza |      85 |  9500.00 |
+| Saikawa       |      10 |  4400.00 |
++---------------+---------+----------+
+10 rows in set (0.00 sec)
+
+--------------
+/*
+Question 12: Display all customers who bought product 1050 AND product 1060.
+*/
+SELECT cust_id, last_name
+FROM customers c
+WHERE cust_id IN
+(SELECT cust_id
+FROM orders o
+WHERE o.cust_id = c.cust_id
+AND o.ord_id IN
+(SELECT od.ord_id
+FROM order_details od
+WHERE od.ord_id = o.ord_id
+AND od.prod_id = 1050
+))
+--------------
+
++---------+-----------+
+| cust_id | last_name |
++---------+-----------+
+|  903000 | McGold    |
+|  408770 | Clay      |
+|  404950 | Morris    |
+|  403000 | Williams  |
++---------+-----------+
+4 rows in set (0.01 sec)
+
+--------------
+/*
+Question 13: What is the product name and list price for the products that are not selling? These would be
+products in the PRODUCTS table that do not appear on any order.
+*/
+
+SELECT catg_id, prod_id, prod_desc, prod_list_price
+FROM products p
+WHERE NOT EXISTS
+(SELECT prod_id
+FROM order_details od
+WHERE od.prod_id = p.prod_id)
+--------------
+
++---------+---------+----------------------------------------------+-----------------+
+| catg_id | prod_id | prod_desc                                    | prod_list_price |
++---------+---------+----------------------------------------------+-----------------+
+| APL     |    1126 | Low Energy washer Dryer combo                |          850.00 |
+| PET     |    1142 | Bird seed mix with sunflowers                |            2.50 |
+| PET     |    1143 | Bird seed mix with more sunflower seeds      |            2.50 |
+| HW      |    1160 | Stand Mixer with attachments                 |          149.99 |
+| MUS     |    2234 | Charles Mingus - Pithecanthropus Erectus     |           15.88 |
+| MUS     |    2337 | John Coltrane - Blue Train                   |           15.87 |
+| MUS     |    2487 | Stanley Turrentine - Don't Mess With Mr. T   |            9.45 |
+| MUS     |    2933 | David Newman - I Remember Brother Ray        |           12.45 |
+| MUS     |    2987 | Stanley Turrentine - Ballads                 |           15.87 |
+| PET     |    4567 | Our highest end cat tree- you gotta see this |          549.99 |
+| PET     |    4568 | Satin four-poster cat bed                    |          549.99 |
+| APL     |    4569 | Sized for the apartment                      |          349.95 |
+| HW      |    4575 | GE model 34PG98                              |           49.95 |
+| GFD     |    5000 | Cello bag of mixed fingerling potatoes       |           12.50 |
+| GFD     |    5001 | Dundee Ginger Preserve 12 oz jar             |            5.00 |
++---------+---------+----------------------------------------------+-----------------+
+15 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> 
